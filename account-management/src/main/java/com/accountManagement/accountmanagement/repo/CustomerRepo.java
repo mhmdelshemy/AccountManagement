@@ -1,7 +1,9 @@
 package com.accountManagement.accountmanagement.repo;
 
 import com.accountManagement.accountmanagement.model.Customer;
-import org.springframework.data.repository.reactive.ReactiveSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CustomerRepo extends ReactiveSortingRepository<Customer,Long> {
+@Repository
+public interface CustomerRepo extends JpaRepository<Customer,Long> {
 }

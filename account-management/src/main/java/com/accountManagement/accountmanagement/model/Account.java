@@ -1,17 +1,27 @@
 package com.accountManagement.accountmanagement.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.mapping.Table;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+
+import javax.persistence.*;
+import java.time.Instant;
+
 
 @Data
-@NoArgsConstructor
-@Table("ACCOUNT")
+@Entity
 public class Account {
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "tutorial_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CUSTOMER_ID")
+    @ToString.Exclude
     private Customer customer;
+
+    @CreatedDate
+    private Instant created;
 
 }

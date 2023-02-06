@@ -1,37 +1,37 @@
 package com.accountManagement.accountmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.*;
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
+
 
 @Data
-@NoArgsConstructor
-@Table("CUSTOMER")
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","accounts"})
+@EntityListeners(AuditingEntityListener.class)
 public class Customer {
 
     @Id
-    @Column("CUSTOMER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
-    @Column("FIRSTNAME")
     private String firstName;
-
-    @Column("SURNAME")
-    private String sureName;
-
-    @Column("BALANCE")
+    private String surName;
     private double balance;
-
-    @Column("CREATED")
+    @CreatedDate
     private Instant created;
-
-    @Column("UPDATED")
+    @LastModifiedDate
     private Instant updated;
+
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
+    private List<Account> accounts;
 
 }
