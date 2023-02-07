@@ -10,6 +10,7 @@ import java.time.Instant;
 public class AccountDto {
 
     private Long id;
+    @ToString.Exclude
     private CustomerDto customer;
     private Instant created;
 }

@@ -1,14 +1,14 @@
 package com.accountManagement.accountmanagement.service.impl;
 
-import com.accountManagement.accountmanagement.dto.AccountDto;
 import com.accountManagement.accountmanagement.dto.AccountRegister;
 import com.accountManagement.accountmanagement.model.Account;
 import com.accountManagement.accountmanagement.repo.AccountRepo;
 import com.accountManagement.accountmanagement.service.AccountService;
 import com.accountManagement.accountmanagement.service.CustomerService;
+import com.accountManagement.accountmanagement.service.TransactionRemoteCall;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,10 +22,10 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepo accountRepo;
     private final CustomerService customerService;
     private final TransactionRemoteCall transactionRemoteCall;
-    private final ModelMapper modelMapper;
 
+    @SneakyThrows
     @Transactional
-    public Account createAccount(AccountRegister accountRegister) throws Exception {
+    public Account createAccount(AccountRegister accountRegister) {
 
         log.info("Getting customer by customerId >> accountRegister.getCustomerId(): {}",accountRegister.getCustomerId());
         var customer = customerService.getCustomerById(accountRegister.getCustomerId());
