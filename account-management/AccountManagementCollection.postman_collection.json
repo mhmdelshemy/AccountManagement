@@ -1,0 +1,48 @@
+{
+	"info": {
+		"_postman_id": "10ec3c99-5653-4c74-941c-c70ebddf2cc6",
+		"name": "AccountManagementCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5719589"
+	},
+	"item": [
+		{
+			"name": "CreateAccount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerId\":\"1002\",\r\n    \"credit\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/account-management/create-account/",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"account-management",
+						"create-account",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTransactionsData",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
