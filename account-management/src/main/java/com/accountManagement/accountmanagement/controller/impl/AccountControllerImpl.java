@@ -2,8 +2,8 @@ package com.accountManagement.accountmanagement.controller.impl;
 
 import com.accountManagement.accountmanagement.constant.ApiConstant;
 import com.accountManagement.accountmanagement.controller.AccountController;
+import com.accountManagement.accountmanagement.dto.AccountDto;
 import com.accountManagement.accountmanagement.dto.AccountRegister;
-import com.accountManagement.accountmanagement.model.Account;
 import com.accountManagement.accountmanagement.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class AccountControllerImpl implements AccountController {
 
     @PostMapping(ApiConstant.CREATE_ACCOUNT_MAPPING)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Account createAccount(@RequestBody @Valid AccountRegister accountRegister) throws Exception {
+    public AccountDto createAccount(@RequestBody @Valid AccountRegister accountRegister) throws Exception {
         return accountService.createAccount(accountRegister);
     }
 }

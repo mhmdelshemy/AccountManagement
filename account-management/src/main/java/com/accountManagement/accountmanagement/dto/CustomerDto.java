@@ -1,6 +1,5 @@
 package com.accountManagement.accountmanagement.dto;
 
-import com.accountManagement.accountmanagement.model.Account;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 

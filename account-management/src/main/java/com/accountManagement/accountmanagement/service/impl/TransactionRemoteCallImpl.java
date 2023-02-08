@@ -1,5 +1,6 @@
 package com.accountManagement.accountmanagement.service.impl;
 
+import com.accountManagement.accountmanagement.constant.ApiConstant;
 import com.accountManagement.accountmanagement.dto.AccountTransactionDto;
 import com.accountManagement.accountmanagement.exception.AddTransactionException;
 import com.accountManagement.accountmanagement.exception.GetTransactionException;
@@ -36,7 +37,7 @@ public class TransactionRemoteCallImpl implements TransactionRemoteCall {
         log.debug("Connected to : {}",transactionServiceBaseURL);
         log.debug("getting transaction by accountId : {}",accountId);
         return webClient.post()
-                .uri("api/transaction-management/get-transaction")
+                .uri(ApiConstant.TRANSACTION_MANAGEMENT_MAPPING+ApiConstant.GET_TRANSACTION_MAPPING)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(accountId))
@@ -54,7 +55,7 @@ public class TransactionRemoteCallImpl implements TransactionRemoteCall {
         bodyValues.put("accountId", String.valueOf(accountId));
         bodyValues.put("amount", String.valueOf(amount));
         webClient.post()
-                .uri("api/transaction-management/create-transaction")
+                .uri(ApiConstant.TRANSACTION_MANAGEMENT_MAPPING+ApiConstant.CREATE_TRANSACTION_MAPPING)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(bodyValues))

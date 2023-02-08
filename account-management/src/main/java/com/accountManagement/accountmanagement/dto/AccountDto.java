@@ -3,9 +3,6 @@ package com.accountManagement.accountmanagement.dto;
 import lombok.*;
 
 import java.time.Instant;
-
-
-
 @Data
 public class AccountDto {
 

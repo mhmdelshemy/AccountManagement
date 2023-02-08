@@ -1,5 +1,6 @@
 package com.accountManagement.accountmanagement.service.impl;
 
+import com.accountManagement.accountmanagement.dto.AccountDto;
 import com.accountManagement.accountmanagement.dto.AccountRegister;
 import com.accountManagement.accountmanagement.model.Account;
 import com.accountManagement.accountmanagement.repo.AccountRepo;
@@ -9,6 +10,7 @@ import com.accountManagement.accountmanagement.service.TransactionRemoteCall;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,9 +25,11 @@ public class AccountServiceImpl implements AccountService {
     private final CustomerService customerService;
     private final TransactionRemoteCall transactionRemoteCall;
 
+    private final ModelMapper modelMapper;
+
     @SneakyThrows
     @Transactional
-    public Account createAccount(AccountRegister accountRegister) {
+    public AccountDto createAccount(AccountRegister accountRegister) {
 
         log.info("Getting customer by customerId >> accountRegister.getCustomerId(): {}",accountRegister.getCustomerId());
         var customer = customerService.getCustomerById(accountRegister.getCustomerId());
@@ -35,7 +39,7 @@ public class AccountServiceImpl implements AccountService {
         account.setCustomer(customer);
         account.setCreated(Instant.now());
 
-        log.info("Account to be saved is : {}",account);
+        log.debug("Account to be saved is : {}",account);
         log.info("Saving account!");
         account = accountRepo.save(account);
 
@@ -48,11 +52,10 @@ public class AccountServiceImpl implements AccountService {
             log.info("Remote call to transaction service , saving transaction!");
             transactionRemoteCall.addTransaction(account.getId(),accountRegister.getCredit());
         }
-
         log.info("Account created successfully !");
 
-        return account;
 
+        return modelMapper.map(account, AccountDto.class);
     }
 
 

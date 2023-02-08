@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,22 +39,26 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     public CustomerTransactionDto getCustomerWithTransaction(Long customerId) {
-        var customer = getCustomerById(customerId);
+        var customer = customerRepo.findById(customerId).orElseThrow(CustomerNotFoundException::new);
         log.info("Mapping customer to customerDto");
         var customerDto = modelMapper.map(customer,CustomerDto.class);
         log.debug("customerDto : {}",customerDto);
-        List<AccountTransactionDto> accountTransactionDtoList = transactionRemoteCall
-                                                                .getTransactionById(customerDto.getAccounts()
-                                                                .stream()
-                                                                .map(AccountDto::getId)
-                                                                .collect(Collectors.toList()));
-        log.debug("accountTransactionDtoList.size() is : {}",accountTransactionDtoList.size());
-
+        List<AccountTransactionDto> accountTransactionDtoList = new ArrayList<>();
+        if(!customerDto.getAccounts().isEmpty()) {
+            log.info("getting transactions by remote call to transaction service!");
+            accountTransactionDtoList = transactionRemoteCall
+                            .getTransactionById(customerDto.getAccounts()
+                            .stream()
+                            .map(AccountDto::getId)
+                            .collect(Collectors.toList()));
+            log.debug("accountTransactionDtoList.size() is : {}", accountTransactionDtoList.size());
+        }else {
+            log.debug("Customer has no accounts , getting customer data");
+        }
         return CustomerTransactionDto.builder()
                 .customerDto(customerDto)
                 .accountTransactionDtoList(accountTransactionDtoList)
                 .build();
-
     }
 
 }
