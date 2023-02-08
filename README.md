@@ -29,7 +29,7 @@ The service is using technologies as follows :
   - Jacoco to generate code coverage report
 
 # How to Run
-- After cloning the project , you can just import the project in Inteliij or any preferable IDE , build the project using build tool in IDE or you can build it using maven by ````mvn clean install```` command, then run it using run option in the IDE or you can run it by ````mvn spring-boot:run````
+- Clone the project and checkout branch ````develop-account-management```` , you can just import the project in Inteliij or any preferable IDE , build the project using build tool in IDE or you can build it using maven by ````mvn clean install```` command, then run it using run option in the IDE or you can run it by ````mvn spring-boot:run````
 Note : The service is performing some integration tests which is connecting to the Transaction service, so make sure to run it first.
 - After running the application you can test the Api's by using swagger using this link : http://localhost:8081/swagger-ui.html 
 or by importing the postman collection included in the under the root folder with name  ````AccountManagementCollection.postman_collection.json````
