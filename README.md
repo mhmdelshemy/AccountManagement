@@ -29,14 +29,14 @@ The service is using technologies as follows :
   - Jacoco to generate code coverage report
 
 # How to Run
-- After cloning the project , you can just import the project in Inteliij or any preferable IDE , build the project using build tool in IDE or you can build it using maven by ````mvn clean install```` command, then run it using run option in the IDE or you can run it by ````mvn spring-boot:run````
+- Clone the project and checkout branch ````develop-account-management```` , you can just import the project in Inteliij or any preferable IDE , build the project using build tool in IDE or you can build it using maven by ````mvn clean install```` command, then run it using run option in the IDE or you can run it by ````mvn spring-boot:run````
 Note : The service is performing some integration tests which is connecting to the Transaction service, so make sure to run it first.
 - After running the application you can test the Api's by using swagger using this link : http://localhost:8081/swagger-ui.html 
-or by importing the postman collection included in the under the root folder with name  ````AccountManagementCollection.postman_collection.json````
-- Make sure to run the Management service before performing any testing activities, because the account management is using Transaction management service.
+or by importing the postman collection included under the root folder with name  ````AccountManagementCollection.postman_collection.json````
+- Make sure to run the Transaction service before performing any testing activities, because the account management is using Transaction management service.
 - I have included a Dockerfile in order to build and run the project as a docker container instead of maven run, but according to some limitation in my working machine , I couldn't been able to build the image and upload it to docker hub, so following commands should build the image and run the container which exposing port 8081 <br>
  1- ````docker build -t account-management . ```` <br>
  2- ````docker run -it -p 8081:8081 account-management````
  - To generate Jacoco report , use command ````mvn clean install```` then use ````mvn jacoco:report```` , and you can find the report as a HTML file in path ````target/site/jacoco/index.html````
- - To track the in-memory database , access http://localhost:8082/h2-console and make sure that you are using ````org.h2.Driver```` as a driver class and ````jdbc:h2:mem:accountmngdb```` as a JDBC URL
+ - To track the in-memory database , access http://localhost:8081/h2-console and make sure that you are using ````org.h2.Driver```` as a driver class and ````jdbc:h2:mem:accountmngdb```` as a JDBC URL
 
